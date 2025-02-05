@@ -3,18 +3,99 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tax Calculator</title>
+    <title>Advanced Tax Calculator</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-    <div class="container">
-        <h1>Income Tax Calculator</h1>
-        <form id="taxForm">
-            <label for="income">Enter Your Income (in INR):</label>
-            <input type="number" id="income" name="income" required>
-            <button type="submit">Calculate Tax</button>
-        </form>
-        <div id="result"></div>
+    <div class="wrapper">
+        <div class="tax-calculator">
+            <div class="header">
+                <div class="icon-wrapper">
+                    <i class="fas fa-calculator"></i>
+                </div>
+                <h1>Income Tax Calculator</h1>
+                <p class="subtitle">Calculate your annual income tax easily</p>
+            </div>
+
+            <div class="calculator-body">
+                <div class="input-section">
+                    <div class="input-group">
+                        <label for="income">Annual Income</label>
+                        <div class="input-wrapper">
+                            <span class="currency">$</span>
+                            <input type="number" id="income" placeholder="Enter your annual income">
+                        </div>
+                    </div>
+
+                    <div class="tax-year-selector">
+                        <label>Tax Year</label>
+                        <div class="radio-group">
+                            <input type="radio" id="year2023" name="taxYear" value="2023" checked>
+                            <label for="year2023">2023-24</label>
+                            <input type="radio" id="year2024" name="taxYear" value="2024">
+                            <label for="year2024">2024-25</label>
+                        </div>
+                    </div>
+
+                    <button id="calculateBtn" class="calculate-btn">
+                        <i class="fas fa-calculator"></i>
+                        Calculate Tax
+                    </button>
+                </div>
+
+                <div class="result-section" id="resultSection">
+                    <div class="result-card total-income">
+                        <div class="result-icon">
+                            <i class="fas fa-money-bill-wave"></i>
+                        </div>
+                        <h3>Total Income</h3>
+                        <p id="displayIncome">$0.00</p>
+                    </div>
+
+                    <div class="result-card tax-amount">
+                        <div class="result-icon">
+                            <i class="fas fa-hand-holding-usd"></i>
+                        </div>
+                        <h3>Tax Amount</h3>
+                        <p id="totalTax">$0.00</p>
+                    </div>
+
+                    <div class="result-card net-income">
+                        <div class="result-icon">
+                            <i class="fas fa-wallet"></i>
+                        </div>
+                        <h3>Net Income</h3>
+                        <p id="netIncome">$0.00</p>
+                    </div>
+                </div>
+
+                <div class="tax-breakdown" id="taxBreakdown">
+                    <h3>Tax Breakdown</h3>
+                    <div class="breakdown-content"></div>
+                </div>
+            </div>
+
+            <div class="tax-slabs-info">
+                <h3>Tax Slabs Information</h3>
+                <div class="slab">
+                    <span class="slab-range">Up to $400,000</span>
+                    <span class="slab-rate">0%</span>
+                </div>
+                <div class="slab">
+                    <span class="slab-range">$400,001 - $1,000,000</span>
+                    <span class="slab-rate">10%</span>
+                </div>
+                <div class="slab">
+                    <span class="slab-range">$1,000,001 - $1,500,000</span>
+                    <span class="slab-rate">15%</span>
+                </div>
+                <div class="slab">
+                    <span class="slab-range">Above $1,500,000</span>
+                    <span class="slab-rate">20%</span>
+                </div>
+            </div>
+        </div>
     </div>
     <script src="script.js"></script>
 </body>
