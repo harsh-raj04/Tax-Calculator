@@ -23,13 +23,13 @@
                     <div class="input-group">
                         <label for="income">Annual Income</label>
                         <div class="input-wrapper">
-                            <span class="currency">$</span>
+                            <span class="currency">₹</span>
                             <input type="number" id="income" placeholder="Enter your annual income">
                         </div>
                     </div>
 
                     <div class="tax-year-selector">
-                        <label>Tax Year</label>
+                        <label>Assessment Year</label>
                         <div class="radio-group">
                             <input type="radio" id="year2023" name="taxYear" value="2023" checked>
                             <label for="year2023">2023-24</label>
@@ -50,7 +50,7 @@
                             <i class="fas fa-money-bill-wave"></i>
                         </div>
                         <h3>Total Income</h3>
-                        <p id="displayIncome">$0.00</p>
+                        <p id="displayIncome">₹0</p>
                     </div>
 
                     <div class="result-card tax-amount">
@@ -58,7 +58,7 @@
                             <i class="fas fa-hand-holding-usd"></i>
                         </div>
                         <h3>Tax Amount</h3>
-                        <p id="totalTax">$0.00</p>
+                        <p id="totalTax">₹0</p>
                     </div>
 
                     <div class="result-card net-income">
@@ -66,7 +66,7 @@
                             <i class="fas fa-wallet"></i>
                         </div>
                         <h3>Net Income</h3>
-                        <p id="netIncome">$0.00</p>
+                        <p id="netIncome">₹0</p>
                     </div>
                 </div>
 
@@ -79,20 +79,32 @@
             <div class="tax-slabs-info">
                 <h3>Tax Slabs Information</h3>
                 <div class="slab">
-                    <span class="slab-range">Up to $400,000</span>
-                    <span class="slab-rate">0%</span>
+                    <span class="slab-range">₹0 - ₹4 lakh</span>
+                    <span class="slab-rate">NIL</span>
                 </div>
                 <div class="slab">
-                    <span class="slab-range">$400,001 - $1,000,000</span>
+                    <span class="slab-range">₹4 lakh - ₹8 lakh</span>
+                    <span class="slab-rate">5%</span>
+                </div>
+                <div class="slab">
+                    <span class="slab-range">₹8 lakh - ₹12 lakh</span>
                     <span class="slab-rate">10%</span>
                 </div>
                 <div class="slab">
-                    <span class="slab-range">$1,000,001 - $1,500,000</span>
+                    <span class="slab-range">₹12 lakh - ₹16 lakh</span>
                     <span class="slab-rate">15%</span>
                 </div>
                 <div class="slab">
-                    <span class="slab-range">Above $1,500,000</span>
+                    <span class="slab-range">₹16 lakh - ₹20 lakh</span>
                     <span class="slab-rate">20%</span>
+                </div>
+                <div class="slab">
+                    <span class="slab-range">₹20 lakh - ₹24 lakh</span>
+                    <span class="slab-rate">25%</span>
+                </div>
+                <div class="slab">
+                    <span class="slab-range">Above ₹24 lakh</span>
+                    <span class="slab-rate">30%</span>
                 </div>
             </div>
         </div>
