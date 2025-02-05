@@ -143,3 +143,112 @@ function animateResults() {
         }, index * 100);
     });
 }
+// Add the new DOM Element reference at the top with other DOM elements
+const effectiveRateElement = document.getElementById('effectiveRate');
+
+// Update the handleCalculation function
+function handleCalculation() {
+    const income = parseFloat(incomeInput.value) || 0;
+    
+    // Add loading animation
+    calculateBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Calculating...';
+    
+    // Simulate calculation delay for better UX
+    setTimeout(() => {
+        const { totalTax, breakdown } = calculateTax(income);
+        const netIncome = income - totalTax;
+
+        // Calculate effective tax rate
+        const effectiveRate = income > 0 ? (totalTax / income) * 100 : 0;
+
+        // Update main results
+        displayIncome.textContent = formatCurrency(income);
+        totalTaxElement.textContent = formatCurrency(totalTax);
+        netIncomeElement.textContent = formatCurrency(netIncome);
+        effectiveRateElement.textContent = `${effectiveRate.toFixed(2)}%`;
+
+        // Update tax breakdown
+        updateBreakdown(breakdown, effectiveRate);
+
+        // Reset button
+        calculateBtn.innerHTML = '<i class="fas fa-calculator"></i> Calculate Tax';
+
+        // Show results with animation
+        animateResults();
+    }, 500);
+}
+
+// Update the updateBreakdown function to include effective rate in the breakdown
+function updateBreakdown(breakdown, effectiveRate) {
+    breakdownContent.innerHTML = '';
+    
+    if (breakdown.length === 0) {
+        breakdownContent.innerHTML = `
+            <div class="breakdown-item">
+                <span>No tax applicable (Income below ${formatCurrency(TAX_SLABS[1].min)})</span>
+                <span>${formatCurrency(0)}</span>
+            </div>`;
+        return;
+    }
+
+    // Add total effective rate summary at the top
+    const summaryItem = document.createElement('div');
+    summaryItem.className = 'breakdown-item summary';
+    summaryItem.innerHTML = `
+        <div>
+            <strong>Effective Tax Rate</strong>
+            <div class="breakdown-details">
+                Total tax as percentage of income
+            </div>
+        </div>
+        <div class="tax-amount">${effectiveRate.toFixed(2)}%</div>
+    `;
+    breakdownContent.appendChild(summaryItem);
+
+    // Add existing breakdown items
+    breakdown.forEach(item => {
+        const breakdownItem = document.createElement('div');
+        breakdownItem.className = 'breakdown-item';
+        breakdownItem.innerHTML = `
+            <div>
+                <strong>${item.slab}</strong>
+                <div class="breakdown-details">
+                    Taxable Amount: ${formatCurrency(item.taxableAmount)}
+                    <span class="tax-rate">Rate: ${item.rate}</span>
+                </div>
+            </div>
+            <div class="tax-amount">${formatCurrency(item.tax)}</div>
+        `;
+        breakdownContent.appendChild(breakdownItem);
+    });
+}
+
+// Add some CSS styles for the new elements
+const style = document.createElement('style');
+style.textContent = `
+    .result-card.effective-rate {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+    }
+
+    .result-card.effective-rate h3,
+    .result-card.effective-rate p {
+        color: white;
+    }
+
+    .result-card.effective-rate .result-icon {
+        background: rgba(255, 255, 255, 0.2);
+    }
+
+    .breakdown-item.summary {
+        background: #f0f4ff;
+        border-left: 4px solid #667eea;
+        margin-bottom: 1rem;
+    }
+
+    .breakdown-item.summary .tax-amount {
+        font-size: 1.2em;
+        color: #667eea;
+    }
+`;
+document.head.appendChild(style);
