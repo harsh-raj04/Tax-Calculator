@@ -14,5 +14,5 @@ document.getElementById('taxForm').addEventListener('submit', function(event) {
         tax = 135000 + (income - 1500000) * 0.20;
     }
 
-    document.getElementById('result').innerText = `Your Tax is: PKR ${tax.toFixed(2)}`;
+    document.getElementById('result').innerText = `Your Tax is: INR ${tax.toFixed(2)}`;
 });
