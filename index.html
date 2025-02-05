@@ -3,72 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>My Awesome Website</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Tax Calculator</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-
-    <header>
-        <h1>Welcome to My Website</h1>
-        <nav>
-            <ul>
-                <li><a href="#home">Home</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#services">Services</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-        </nav>
-    </header>
-
-    <main>
-        <section id="home">
-            <h2>Home Section</h2>
-            <p>This is the home section of the website. Here, we can display the latest updates or featured content.</p>
-            <img src="https://via.placeholder.com/800x400" alt="Placeholder Image" width="100%">
-        </section>
-
-        <section id="about">
-            <h2>About Us</h2>
-            <p>We are a team of passionate developers who specialize in creating beautiful and functional websites. We aim to deliver high-quality web development solutions that are user-friendly and performance-optimized.</p>
-        </section>
-
-        <section id="services">
-            <h2>Our Services</h2>
-            <ul>
-                <li>Web Development</li>
-                <li>App Development</li>
-                <li>SEO Services</li>
-                <li>Consulting</li>
-            </ul>
-        </section>
-
-        <section id="contact">
-            <h2>Contact Us</h2>
-            <p>If you'd like to get in touch, please use the form below:</p>
-            <form action="#" method="POST">
-                <label for="name">Name:</label>
-                <input type="text" id="name" name="name" required><br><br>
-
-                <label for="email">Email:</label>
-                <input type="email" id="email" name="email" required><br><br>
-
-                <label for="message">Message:</label><br>
-                <textarea id="message" name="message" rows="4" required></textarea><br><br>
-
-                <button type="submit">Send Message</button>
-            </form>
-        </section>
-    </main>
-
-    <footer>
-        <p>&copy; 2025 My Awesome Website | All Rights Reserved</p>
-        <div class="social-media">
-            <a href="https://facebook.com" target="_blank">Facebook</a> |
-            <a href="https://twitter.com" target="_blank">Twitter</a> |
-            <a href="https://instagram.com" target="_blank">Instagram</a>
-        </div>
-    </footer>
-
+    <div class="container">
+        <h1>Income Tax Calculator</h1>
+        <form id="taxForm">
+            <label for="income">Enter Your Income (in PKR):</label>
+            <input type="number" id="income" name="income" required>
+            <button type="submit">Calculate Tax</button>
+        </form>
+        <div id="result"></div>
+    </div>
+    <script src="script.js"></script>
 </body>
 </html>
