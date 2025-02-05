@@ -146,7 +146,47 @@ function animateResults() {
 // Add the new DOM Element reference at the top with other DOM elements
 const effectiveRateElement = document.getElementById('effectiveRate');
 
-// Update the handleCalculation function
+function calculateTax(income) {
+    let totalTax = 0;
+    const breakdown = [];
+    
+    // Sort tax slabs by minimum amount to ensure correct calculation
+    const sortedSlabs = TAX_SLABS.sort((a, b) => a.min - b.min);
+    
+    for (let i = 0; i < sortedSlabs.length; i++) {
+        const currentSlab = sortedSlabs[i];
+        const nextSlab = sortedSlabs[i + 1];
+        
+        // Calculate taxable amount for current slab
+        let taxableAmount = 0;
+        if (!nextSlab) {
+            // For the highest slab
+            if (income > currentSlab.min) {
+                taxableAmount = income - currentSlab.min;
+            }
+        } else {
+            // For other slabs
+            if (income > currentSlab.min) {
+                taxableAmount = Math.min(nextSlab.min - currentSlab.min, income - currentSlab.min);
+            }
+        }
+        
+        // Calculate tax for current slab
+        if (taxableAmount > 0) {
+            const tax = taxableAmount * (currentSlab.rate / 100);
+            totalTax += tax;
+            breakdown.push({
+                slab: `${formatCurrency(currentSlab.min)} - ${nextSlab ? formatCurrency(nextSlab.min) : 'above'}`,
+                taxableAmount: taxableAmount,
+                rate: currentSlab.rate + '%',
+                tax: tax
+            });
+        }
+    }
+    
+    return { totalTax, breakdown };
+}
+
 function handleCalculation() {
     const income = parseFloat(incomeInput.value) || 0;
     
@@ -158,8 +198,13 @@ function handleCalculation() {
         const { totalTax, breakdown } = calculateTax(income);
         const netIncome = income - totalTax;
 
-        // Calculate effective tax rate
-        const effectiveRate = income > 0 ? (totalTax / income) * 100 : 0;
+        // Calculate effective tax rate with proper error handling
+        let effectiveRate = 0;
+        if (income > 0) {
+            effectiveRate = (totalTax / income) * 100;
+            // Ensure the rate is not negative and has reasonable precision
+            effectiveRate = Math.max(0, Math.round(effectiveRate * 100) / 100);
+        }
 
         // Update main results
         displayIncome.textContent = formatCurrency(income);
@@ -167,7 +212,7 @@ function handleCalculation() {
         netIncomeElement.textContent = formatCurrency(netIncome);
         effectiveRateElement.textContent = `${effectiveRate.toFixed(2)}%`;
 
-        // Update tax breakdown
+        // Update tax breakdown with the calculated effective rate
         updateBreakdown(breakdown, effectiveRate);
 
         // Reset button
@@ -178,19 +223,9 @@ function handleCalculation() {
     }, 500);
 }
 
-// Update the updateBreakdown function to include effective rate in the breakdown
 function updateBreakdown(breakdown, effectiveRate) {
     breakdownContent.innerHTML = '';
     
-    if (breakdown.length === 0) {
-        breakdownContent.innerHTML = `
-            <div class="breakdown-item">
-                <span>No tax applicable (Income below ${formatCurrency(TAX_SLABS[1].min)})</span>
-                <span>${formatCurrency(0)}</span>
-            </div>`;
-        return;
-    }
-
     // Add total effective rate summary at the top
     const summaryItem = document.createElement('div');
     summaryItem.className = 'breakdown-item summary';
@@ -205,7 +240,20 @@ function updateBreakdown(breakdown, effectiveRate) {
     `;
     breakdownContent.appendChild(summaryItem);
 
-    // Add existing breakdown items
+    if (breakdown.length === 0) {
+        const noTaxItem = document.createElement('div');
+        noTaxItem.className = 'breakdown-item';
+        noTaxItem.innerHTML = `
+            <div>
+                <span>No tax applicable (Income below ${formatCurrency(TAX_SLABS[0].min)})</span>
+                <span>${formatCurrency(0)}</span>
+            </div>
+        `;
+        breakdownContent.appendChild(noTaxItem);
+        return;
+    }
+
+    // Add breakdown items
     breakdown.forEach(item => {
         const breakdownItem = document.createElement('div');
         breakdownItem.className = 'breakdown-item';
@@ -222,33 +270,3 @@ function updateBreakdown(breakdown, effectiveRate) {
         breakdownContent.appendChild(breakdownItem);
     });
 }
-
-// Add some CSS styles for the new elements
-const style = document.createElement('style');
-style.textContent = `
-    .result-card.effective-rate {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        color: white;
-    }
-
-    .result-card.effective-rate h3,
-    .result-card.effective-rate p {
-        color: white;
-    }
-
-    .result-card.effective-rate .result-icon {
-        background: rgba(255, 255, 255, 0.2);
-    }
-
-    .breakdown-item.summary {
-        background: #f0f4ff;
-        border-left: 4px solid #667eea;
-        margin-bottom: 1rem;
-    }
-
-    .breakdown-item.summary .tax-amount {
-        font-size: 1.2em;
-        color: #667eea;
-    }
-`;
-document.head.appendChild(style);
