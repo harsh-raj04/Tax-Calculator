@@ -288,21 +288,27 @@ input[type="number"]:focus {
         grid-template-columns: 1fr;
     }
 }
+.advanced-btn-container {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: -40px; /* Moves button upwards */
+    margin-bottom: 20px;
+}
+
 .advanced-btn {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #ff7eb3 0%, #ff758c 100%);
     color: white;
     border: none;
-    padding: 10px 15px;
-    border-radius: 8px;
-    font-size: 1rem;
+    padding: 12px 20px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    border-radius: 10px;
     cursor: pointer;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .advanced-btn:hover {
-    transform: translateY(-2px);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
 }
