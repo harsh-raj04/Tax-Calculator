@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Tax Calculator</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="wrapper">
+        <div class="tax-calculator">
+            <div class="header">
+                <div class="icon-wrapper">
+                    <i class="fas fa-calculator"></i>
+                </div>
+                <h1>Advanced Tax Calculator</h1>
+                <p class="subtitle">Calculate tax with deductions, salary breakdown & more</p>
+            </div>
+
+            <div class="calculator-body">
+                <div class="input-section">
+                    <div class="input-group">
+                        <label for="income">Annual Income</label>
+                        <div class="input-wrapper">
+                            <span class="currency">₹</span>
+                            <input type="number" id="income" placeholder="Enter your annual income">
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="deductions">Deductions (80C, 80D, HRA, etc.)</label>
+                        <input type="number" id="deductions" placeholder="Enter deductions">
+                    </div>
+
+                    <div class="tax-year-selector">
+                        <label>Tax Regime</label>
+                        <div class="radio-group">
+                            <input type="radio" id="oldRegime" name="taxRegime" value="old" checked>
+                            <label for="oldRegime">Old Regime</label>
+                            <input type="radio" id="newRegime" name="taxRegime" value="new">
+                            <label for="newRegime">New Regime</label>
+                        </div>
+                    </div>
+
+                    <button id="calculateBtn" class="calculate-btn">
+                        <i class="fas fa-calculator"></i>
+                        Calculate Tax
+                    </button>
+                </div>
+
+                <div class="result-section" id="resultSection">
+                    <div class="result-card total-income">
+                        <h3>Total Income</h3>
+                        <p id="displayIncome">₹0</p>
+                    </div>
+                    <div class="result-card tax-amount">
+                        <h3>Tax Amount</h3>
+                        <p id="totalTax">₹0</p>
+                    </div>
+                    <div class="result-card net-income">
+                        <h3>Net Income</h3>
+                        <p id="netIncome">₹0</p>
+                    </div>
+                    <div class="result-card effective-rate">
+                        <h3>Effective Tax Rate</h3>
+                        <p id="effectiveRate">0%</p>
+                    </div>
+                </div>
+
+                <div class="tax-breakdown" id="taxBreakdown">
+                    <h3>Tax Breakdown</h3>
+                    <div class="breakdown-content"></div>
+                </div>
+            </div>
+            
+            <button onclick="window.location.href='index.html'" class="calculate-btn">Back to Basic Calculator</button>
+        </div>
+    </div>
+    <script src="advanced.js"></script>
+</body>
+</html>
