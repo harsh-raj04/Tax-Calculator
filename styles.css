@@ -215,7 +215,7 @@ input[type="number"]:focus {
     margin-top: 2rem;
     width: 100%;
     padding: 1rem;
-    background: #4a5568;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: white;
     border: none;
     border-radius: 10px;
