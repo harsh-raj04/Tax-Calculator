@@ -14,14 +14,15 @@
                 <div class="icon-wrapper">
                     <i class="fas fa-calculator"></i>
                 </div>
-                <h1>Income Tax Calculator</h1><h1>Income Tax Calculator</h1>
-                <p class="subtitle">Calculate your annual income tax easily</p>
+                <h1>Income Tax Calculator</h1>
+                
                 
                 <div class="advanced-btn-container">
                     <button onclick="window.location.href='advanced.html'" class="advanced-btn">
                         Advanced Calculator
                     </button>
                 </div>
+                
                 <p class="subtitle">Calculate your annual income tax easily</p>
             </div>
 
@@ -35,13 +36,13 @@
                         </div>
                     </div>
 
-                    <div class="tax-year-selector">
-                        <label>Assessment Year</label>
+                    <div class="tax-regime-selector">
+                        <label>Tax Regime</label>
                         <div class="radio-group">
-                            <input type="radio" id="year2023" name="taxYear" value="2023" checked>
-                            <label for="year2023">2023-24</label>
-                            <input type="radio" id="year2024" name="taxYear" value="2024">
-                            <label for="year2024">2024-25</label>
+                            <input type="radio" id="oldRegime" name="taxRegime" value="old" checked>
+                            <label for="oldRegime">Old Regime</label>
+                            <input type="radio" id="newRegime" name="taxRegime" value="new">
+                            <label for="newRegime">New Regime</label>
                         </div>
                     </div>
 
@@ -75,8 +76,7 @@
                         <h3>Net Income</h3>
                         <p id="netIncome">₹0</p>
                     </div>
-                </div>
-                    <!-- Add this card after the net-income card in the result-section -->
+
                     <div class="result-card effective-rate">
                         <div class="result-icon">
                             <i class="fas fa-percent"></i>
@@ -84,6 +84,8 @@
                         <h3>Effective Tax Rate</h3>
                         <p id="effectiveRate">0%</p>
                     </div>
+                </div>
+
                 <div class="tax-breakdown" id="taxBreakdown">
                     <h3>Tax Breakdown</h3>
                     <div class="breakdown-content"></div>
@@ -92,45 +94,78 @@
 
             <div class="tax-slabs-info">
                 <h3>Tax Slabs Information</h3>
-                <div class="slab">
-                    <span class="slab-range">₹0 - ₹4 lakh</span>
-                    <span class="slab-rate">NIL</span>
+                
+                <div class="tax-regime-tabs">
+                    <div class="tab-headers">
+                        <button class="tab-btn active" onclick="showSlabs('old')">Old Regime</button>
+                        <button class="tab-btn" onclick="showSlabs('new')">New Regime</button>
+                    </div>
+                    
+                    <div id="oldRegimeSlabs" class="regime-slabs active">
+                        <div class="slab">
+                            <span class="slab-range">₹0 - ₹2.5 lakh</span>
+                            <span class="slab-rate">NIL</span>
+                        </div>
+                        <div class="slab">
+                            <span class="slab-range">₹2.5 lakh - ₹5 lakh</span>
+                            <span class="slab-rate">5%</span>
+                        </div>
+                        <div class="slab">
+                            <span class="slab-range">₹5 lakh - ₹7.5 lakh</span>
+                            <span class="slab-rate">10%</span>
+                        </div>
+                        <div class="slab">
+                            <span class="slab-range">₹7.5 lakh - ₹10 lakh</span>
+                            <span class="slab-rate">15%</span>
+                        </div>
+                        <div class="slab">
+                            <span class="slab-range">₹10 lakh - ₹12.5 lakh</span>
+                            <span class="slab-rate">20%</span>
+                        </div>
+                        <div class="slab">
+                            <span class="slab-range">₹12.5 lakh - ₹15 lakh</span>
+                            <span class="slab-rate">25%</span>
+                        </div>
+                        <div class="slab">
+                            <span class="slab-range">Above ₹15 lakh</span>
+                            <span class="slab-rate">30%</span>
+                        </div>
+                    </div>
+
+                    <div id="newRegimeSlabs" class="regime-slabs">
+                        <div class="slab">
+                            <span class="slab-range">₹0 - ₹4 lakh</span>
+                            <span class="slab-rate">NIL</span>
+                        </div>
+                        <div class="slab">
+                            <span class="slab-range">₹4 lakh - ₹8 lakh</span>
+                            <span class="slab-rate">5%</span>
+                        </div>
+                        <div class="slab">
+                            <span class="slab-range">₹8 lakh - ₹12 lakh</span>
+                            <span class="slab-rate">10%</span>
+                        </div>
+                        <div class="slab">
+                            <span class="slab-range">₹12 lakh - ₹16 lakh</span>
+                            <span class="slab-rate">15%</span>
+                        </div>
+                        <div class="slab">
+                            <span class="slab-range">₹16 lakh - ₹20 lakh</span>
+                            <span class="slab-rate">20%</span>
+                        </div>
+                        <div class="slab">
+                            <span class="slab-range">₹20 lakh - ₹24 lakh</span>
+                            <span class="slab-rate">25%</span>
+                        </div>
+                        <div class="slab">
+                            <span class="slab-range">Above ₹24 lakh</span>
+                            <span class="slab-rate">30%</span>
+                        </div>
+                    </div>
                 </div>
-                <div class="slab">
-                    <span class="slab-range">₹4 lakh - ₹8 lakh</span>
-                    <span class="slab-rate">5%</span>
-                </div>
-                <div class="slab">
-                    <span class="slab-range">₹8 lakh - ₹12 lakh</span>
-                    <span class="slab-rate">10%</span>
-                </div>
-                <div class="slab">
-                    <span class="slab-range">₹12 lakh - ₹16 lakh</span>
-                    <span class="slab-rate">15%</span>
-                </div>
-                <div class="slab">
-                    <span class="slab-range">₹16 lakh - ₹20 lakh</span>
-                    <span class="slab-rate">20%</span>
-                </div>
-                <div class="slab">
-                    <span class="slab-range">₹20 lakh - ₹24 lakh</span>
-                    <span class="slab-rate">25%</span>
-                </div>
-                <div class="slab">
-                    <span class="slab-range">Above ₹24 lakh</span>
-                    <span class="slab-rate">30%</span>
-                </div>
-            </div>
-            <div class="advanced-btn-container">
-                <button onclick="window.location.href='advanced.html'" class="advanced-btn">
-                    Advanced Calculator
-                </button>
             </div>
         </div>
     </div>
-    <button onclick="window.location.href='advanced.html'" class="advanced-btn">
-        Advanced Calculator
-    </button>
     <script src="script.js"></script>
 </body>
 </html>

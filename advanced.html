@@ -32,6 +32,10 @@
                         <label for="deductions">Deductions (80C, 80D, HRA, etc.)</label>
                         <input type="number" id="deductions" placeholder="Enter deductions">
                     </div>
+                    <div class="input-group">
+                        <label for="standardDeductions">Standard Deduction</label>
+                        <input type="number" id="standardDeductions" placeholder="Enter standard deduction">
+                    </div>
 
                     <div class="tax-year-selector">
                         <label>Tax Regime</label>
@@ -74,7 +78,10 @@
                 </div>
             </div>
             
-            <button onclick="window.location.href='index.html'" class="calculate-btn">Back to Basic Calculator</button>
+            <button onclick="window.location.href='index.html'" class="back-button">
+                <i class="fas fa-arrow-left"></i>
+                Back to Basic Calculator
+            </button>
         </div>
     </div>
     <script src="advanced.js"></script>

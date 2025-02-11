@@ -29,6 +29,12 @@ body {
     backdrop-filter: blur(10px);
 }
 
+/* Add this new CSS for the advanced calculator */
+.tax-calculator .calculate-btn {
+    width: 100%;
+    margin-bottom: 1rem;
+}
+
 /* Header Styles */
 .header {
     text-align: center;
@@ -58,15 +64,16 @@ body {
 }
 
 .subtitle {
-    color: #666;
+    margin-top: 10px; 
     font-size: 1.1rem;
+    color: #666;
 }
 
 /* Calculator Body */
 .calculator-body {
     display: grid;
     gap: 2rem;
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;  /* Reduced from 2rem to 1rem */
 }
 
 /* Input Section */
@@ -75,6 +82,7 @@ body {
     padding: 2rem;
     border-radius: 15px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-bottom: 2rem;  /* Increased from 1rem */
 }
 
 .input-group {
@@ -115,8 +123,8 @@ input[type="number"]:focus {
     border-color: #667eea;
 }
 
-/* Tax Year Selector */
-.tax-year-selector {
+/* Tax Regime Selector */
+.tax-regime-selector {
     margin-bottom: 1.5rem;
 }
 
@@ -143,6 +151,42 @@ input[type="number"]:focus {
     color: white;
 }
 
+/* Tax Regime Tabs */
+.tax-regime-tabs {
+    margin-top: 2rem;  /* Increased from 1rem */
+    padding-top: 1rem; /* Added padding */
+    border-top: 1px solid #e2e8f0; /* Added separator */
+}
+
+.tab-headers {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.tab-btn {
+    padding: 0.5rem 1rem;
+    border: none;
+    background: #e2e8f0;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.tab-btn.active {
+    background: #667eea;
+    color: white;
+}
+
+.regime-slabs {
+    display: none;
+}
+
+.regime-slabs.active {
+    display: block;
+}
+
 /* Calculate Button */
 .calculate-btn {
     width: 100%;
@@ -158,9 +202,48 @@ input[type="number"]:focus {
     align-items: center;
     justify-content: center;
     gap: 0.5rem;
+    margin-bottom: 2rem; /* Increased from 1rem */
+    margin-top: 1rem; /* Added margin-top */
 }
 
 .calculate-btn:hover {
+    transform: translateY(-2px);
+}
+
+/* Add specific styling for advanced calculator back button */
+.tax-calculator .back-button {
+    margin-top: 2rem;
+    width: 100%;
+    padding: 1rem;
+    background: #4a5568;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.tax-calculator .back-button:hover {
+    transform: translateY(-2px);
+    background: #2d3748;
+}
+
+/* Back Button */
+.back-button {
+    width: 100%;
+    padding: 1rem;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); /* Changed back to original gradient */
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    margin-top: 2rem;
+}
+
+.back-button:hover {
     transform: translateY(-2px);
 }
 
@@ -218,6 +301,7 @@ input[type="number"]:focus {
     padding: 2rem;
     border-radius: 15px;
     margin-top: 2rem;
+    margin-bottom: 2rem; /* Added margin-bottom */
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
@@ -281,18 +365,20 @@ input[type="number"]:focus {
     }
 
     .header h1 {
-        font-size: 2rem;
+        font-size: 2.5rem;
+        margin-bottom: 15px; 
     }
 
     .result-section {
         grid-template-columns: 1fr;
     }
 }
+
 .advanced-btn-container {
     display: flex;
     justify-content: flex-end;
-    margin-top: -40px; /* Moves button upwards */
-    margin-bottom: 20px;
+    margin-top: -60px; /* Move button higher */
+    margin-right: 10px; /* Adjust spacing */
 }
 
 .advanced-btn {

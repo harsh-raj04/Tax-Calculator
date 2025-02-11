@@ -1,12 +1,22 @@
 // Tax slab configuration (in Rupees)
-const TAX_SLABS = [
-    { min: 0, max: 400000, rate: 0 },      // 0-4 lakh
-    { min: 400000, max: 800000, rate: 0.05 },  // 4-8 lakh
-    { min: 800000, max: 1200000, rate: 0.10 }, // 8-12 lakh
-    { min: 1200000, max: 1600000, rate: 0.15 }, // 12-16 lakh
-    { min: 1600000, max: 2000000, rate: 0.20 }, // 16-20 lakh
-    { min: 2000000, max: 2400000, rate: 0.25 }, // 20-24 lakh
-    { min: 2400000, max: Infinity, rate: 0.30 }  // Above 24 lakh
+const TAX_SLABS_OLD = [
+    { min: 0, max: 250000, rate: 0 },
+    { min: 250000, max: 500000, rate: 0.05 },
+    { min: 500000, max: 750000, rate: 0.1 },
+    { min: 750000, max: 1000000, rate: 0.15 },
+    { min: 1000000, max: 1250000, rate: 0.2 },
+    { min: 1250000, max: 1500000, rate: 0.25 },
+    { min: 1500000, max: Infinity, rate: 0.3 }
+];
+
+const TAX_SLABS_NEW = [
+    { min: 0, max: 400000, rate: 0 },
+    { min: 400000, max: 800000, rate: 0.05 },
+    { min: 800000, max: 1200000, rate: 0.10 },
+    { min: 1200000, max: 1600000, rate: 0.15 },
+    { min: 1600000, max: 2000000, rate: 0.20 },
+    { min: 2000000, max: 2400000, rate: 0.25 },
+    { min: 2400000, max: Infinity, rate: 0.30 }
 ];
 
 // DOM Elements
@@ -17,6 +27,7 @@ const totalTaxElement = document.getElementById('totalTax');
 const netIncomeElement = document.getElementById('netIncome');
 const breakdownContent = document.querySelector('.breakdown-content');
 const effectiveRateElement = document.getElementById('effectiveRate');
+const taxRegimeInputs = document.querySelectorAll('input[name="taxRegime"]');
 
 // Event Listeners
 calculateBtn.addEventListener('click', handleCalculation);
@@ -41,7 +52,8 @@ function formatCurrency(amount) {
 }
 
 // Calculate total tax and breakdown
-function calculateTax(income) {
+function calculateTax(income, regime) {
+    const TAX_SLABS = regime === 'old' ? TAX_SLABS_OLD : TAX_SLABS_NEW;
     let totalTax = 0;
     let breakdown = [];
 
@@ -68,13 +80,17 @@ function calculateTax(income) {
 // Handle the calculation and update UI
 function handleCalculation() {
     const income = parseFloat(incomeInput.value) || 0;
-    
+    const selectedRegime = document.querySelector('input[name="taxRegime"]:checked').value;
+
     // Add loading animation
     calculateBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Calculating...';
-    
+
+    // Show tax slab information based on selected regime
+    showSlabs(selectedRegime);
+
     // Simulate calculation delay for better UX
     setTimeout(() => {
-        const { totalTax, breakdown } = calculateTax(income);
+        const { totalTax, breakdown } = calculateTax(income, selectedRegime);
         const netIncome = income - totalTax;
 
         // Calculate effective tax rate
@@ -100,11 +116,11 @@ function handleCalculation() {
 // Update breakdown section
 function updateBreakdown(breakdown) {
     breakdownContent.innerHTML = '';
-    
+
     if (breakdown.length === 0) {
         breakdownContent.innerHTML = `
             <div class="breakdown-item">
-                <span>No tax applicable (Income below ${formatCurrency(TAX_SLABS[1].min)})</span>
+                <span>No tax applicable (Income below ${formatCurrency(TAX_SLABS_OLD[1].min)})</span>
                 <span>${formatCurrency(0)}</span>
             </div>`;
         return;
@@ -140,3 +156,41 @@ function animateResults() {
         }, index * 100);
     });
 }
+
+function showSlabs(regime) {
+    // Hide all regime slabs
+    document.querySelectorAll('.regime-slabs').forEach(slab => {
+        slab.classList.remove('active');
+    });
+    
+    // Show selected regime slabs
+    document.getElementById(`${regime}RegimeSlabs`).classList.add('active');
+    
+    // Update tab buttons - select the correct button based on regime
+    const buttonToActivate = regime === 'old' ? 
+        document.querySelector('[onclick="showSlabs(\'old\')"]') : 
+        document.querySelector('[onclick="showSlabs(\'new\')"]');
+    
+    // Remove active class from all buttons
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.classList.remove('active');
+    });
+    
+    // Add active class to the correct button
+    if (buttonToActivate) {
+        buttonToActivate.classList.add('active');
+    }
+}
+
+// Add event listener for tax regime change
+document.querySelectorAll('input[name="taxRegime"]').forEach(input => {
+    input.addEventListener('change', (e) => {
+        showSlabs(e.target.value);
+    });
+});
+
+// Initialize with default regime on page load
+window.addEventListener('load', () => {
+    const defaultRegime = document.querySelector('input[name="taxRegime"]:checked').value;
+    showSlabs(defaultRegime);
+});
